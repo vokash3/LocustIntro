@@ -10,6 +10,7 @@ class HTTPCat(TaskSet):
     def get_status(self):
         self.client.get("/200")
         print("Get status of 200")
+        self.interrupt(reschedule=False)
 
     @task
     def get_random_status(self):
@@ -22,7 +23,16 @@ class HTTPCat(TaskSet):
         print(f"Random http status: {res}")
 
 
+class HTTPCat500(TaskSet):
+
+    @task
+    def get_500_status(self):
+        self.client.get("/500")
+        print("Get status of 500")
+        self.interrupt(reschedule=False)
+
+
 class HTTPCatLoadTest(HttpUser):
     host = "https://http.cat"
-    tasks = [HTTPCat]
+    tasks = [HTTPCat, HTTPCat500]
     wait_time = constant(1)
