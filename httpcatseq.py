@@ -1,3 +1,9 @@
+# locust
+# -f httpcatseq.py
+# -u 5 -r 1 -t 1m
+# --headless --print-stats --csv httpcat.csv --csv-full-history
+# --host=https://http.cat
+
 from locust import SequentialTaskSet, task, HttpUser, constant
 
 
